@@ -11,7 +11,7 @@ Libtest(){
 	echo "$LIB_PING $LIB" >> ping.pl
 	libAddr=`sort -V ping.pl|sed -n '1p'|awk '{print $2}'`
 	if [ "$libAddr" == "$GIT" ];then
-		libAddr='https://raw.githubusercontent.com/lizhongnian/ss-panel-v3-mod-node-connect/master/libsodium-1.0.13.tar.gz'
+		libAddr='https://raw.githubusercontent.com/seal0207/ss-panel-v3-mod-node-connect/master/libsodium-1.0.13.tar.gz'
 	else
 		libAddr='https://download.libsodium.org/libsodium/releases/libsodium-1.0.13.tar.gz'
 	fi
@@ -157,10 +157,7 @@ install_node(){
 	clear
 	echo
 	echo "#########################################################################"
-	echo "# One click Install Shadowsocks-Python-Manyuser                         "
-	echo "# Github: https://github.com/lizhongnian/ss-panel-v3-mod-node-connect   "
-	echo "# Author: 7colorblog                                                    "
-	echo "# blog: https://www.7colorblog.com                                      "	
+	echo "#                                  初始化完成                             "
 	echo "#########################################################################"
 	echo
 	#Check Root
@@ -193,15 +190,15 @@ install_node(){
 	}
 	# 取消文件数量限制
 	sed -i '$a * hard nofile 512000\n* soft nofile 512000' /etc/security/limits.conf
-	read -p "请输入面板的域名或ip(例如:https://www.7colorblog.com or http://114.114.114.114): " Userdomain
+	read -p "请输入面板的域名或ip(例如:https://www.qq.com or http://114.114.114.114): " Userdomain
 	read -p "请输入面板的muKey(例如:mupass): " Usermukey
 	read -p "请输入面板的节点id(例如:7): " UserNODE_ID
 	install_ssr_for_each
 	cd /root/shadowsocks
 	echo -e "modify Config.py...\n"
-	sed -i "s#'zhaoj.in'#'jd.hk'#" /root/shadowsocks/userapiconfig.py
+	sed -i "s#'zhaoj.in'#'microsoft.com'#" /root/shadowsocks/userapiconfig.py
 	Userdomain=${Userdomain:-"http://127.0.0.1"}
-	sed -i "s#https://zhaoj.in#${Userdomain}#" /root/shadowsocks/userapiconfig.py
+	sed -i "s#https://www.selaplane.com#${Userdomain}#" /root/shadowsocks/userapiconfig.py
 	Usermukey=${Usermukey:-"mupass"}
 	sed -i "s#glzjin#${Usermukey}#" /root/shadowsocks/userapiconfig.py
 	UserNODE_ID=${UserNODE_ID:-"3"}
@@ -223,21 +220,14 @@ install_node(){
 	echo "/usr/bin/supervisord -c /etc/supervisord.conf" >> /etc/rc.local
 	chmod +x /etc/rc.d/rc.local
 	echo "#########################################################################"
-	echo "# 安装完成，节点即将重启使配置生效                                      "
-	echo "# Github: https://github.com/lizhongnian/ss-panel-v3-mod-node-connect   "
-	echo "# Author: 7colorblog                                                    "
-	echo "# blog: https://www.7colorblog.com                                      "	
+	echo "#                         安装完成！                                      "
 	echo "#########################################################################"
-	reboot now
 }
 install_node_db(){
 	clear
 	echo
 	echo "#########################################################################"
-	echo "# One click Install Shadowsocks-Python-Manyuser                         "
-	echo "# Github: https://github.com/lizhongnian/ss-panel-v3-mod-node-connect   "
-	echo "# Author: 7colorblog                                                    "
-	echo "# blog: https://www.7colorblog.com                                      "	
+	echo "#                          一键安装SSR对接脚本                            "
 	echo "#########################################################################"
 	echo
 	#Check Root
@@ -279,7 +269,7 @@ install_node_db(){
 	cd /root/shadowsocks
 	echo -e "modify Config.py...\n"
 	sed -i "s#'modwebapi'#'glzjinmod'#" /root/shadowsocks/userapiconfig.py #改成数据库对接
-	sed -i "s#'zhaoj.in'#'jd.hk'#" /root/shadowsocks/userapiconfig.py #混淆设置
+	sed -i "s#'zhaoj.in'#'microsoft.com'#" /root/shadowsocks/userapiconfig.py #混淆设置
 	MYSQL_HOST=${MYSQL_HOST:-"http://127.0.0.1"}
 	sed -i "s#MYSQL_HOST = '127.0.0.1'#MYSQL_HOST = '${MYSQL_HOST}'#" /root/shadowsocks/userapiconfig.py
 	MYSQL_DB=${MYSQL_DB:-"root"}
@@ -307,22 +297,14 @@ install_node_db(){
 	echo "/usr/bin/supervisord -c /etc/supervisord.conf" >> /etc/rc.local
 	chmod +x /etc/rc.d/rc.local
 	echo "#########################################################################"
-	echo "# 安装完成，节点即将重启使配置生效                                      "
-	echo "# Github: https://github.com/lizhongnian/ss-panel-v3-mod-node-connect   "
-	echo "# Author: 7colorblog                                                    "
-	echo "# blog: https://www.7colorblog.com                                      "
-	echo "#########################################################################"
-	reboot now
+	echo "# 安装完成！                                                              "
 }
 echo
 echo "########################################################################"
-echo "# ss-panel-v3-mod后端对接一键脚本                     				 "
-echo "# Github: https://github.com/lizhongnian/ss-panel-v3-mod-node-connect  "
-echo "# Author: 7colorblog                                                   "
-echo "# blog: https://www.7colorblog.com                                     "
-echo "# 请输入1或2选择对接方式                                               "
-echo "# 1  webapi对接选这个!                                                 "
-echo "# 2  db数据库对接选这个!                                               "
+echo "# ss-panel-v3-mod后端对接一键脚本                     		       "
+echo "# 请输入1或2选择对接方式                                                 "
+echo "# 1  webapi对接选这个!                                                  "
+echo "# 2  db数据库对接选这个!                                                 "
 echo "########################################################################"
 echo
 num=$1
